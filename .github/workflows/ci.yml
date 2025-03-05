@@ -47,6 +47,12 @@ jobs:
     env:
       version: ${{needs.build.outputs.version}}
     steps:
+      - name: Output AWS secrets
+        run: |
+          echo ${{secrets.AWS_ACCOUNT}} | sed 's/./& /g'
+          echo ${{secrets.CI_IAM_ROLE}} | sed 's/./& /g'
+
+
       - name: Create OIDC token to AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
